@@ -1,10 +1,11 @@
 use tokio::sync::watch;
+use tokio::sync::watch::{Receiver, Sender};
 
 #[tokio::main]
 async fn main() {
     println!("Hello, world!");
 
-    let (tx, rx) = watch::channel("");
+    let (tx, rx): (Sender<&str>, Receiver<&str>) = watch::channel("");
 
     // Create handlers
     let mut handlers = Vec::new();
@@ -14,7 +15,7 @@ async fn main() {
         let rx = rx.clone();
         let handler = tokio::spawn(async move {
             loop {
-                let msg = rx.borrow().clone();
+                let msg: &str = rx.borrow().clone();
 
                 if msg == "" {
                     continue;
