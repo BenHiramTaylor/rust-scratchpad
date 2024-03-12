@@ -17,7 +17,7 @@ async fn main() {
             loop {
                 let msg: &str = rx.borrow().clone();
 
-                if msg == "" {
+                if msg.is_empty() {
                     continue;
                 }
 
